@@ -1,18 +1,21 @@
-# Modified Momentum Transformer - IN PROCESS, DON'T FORK OR USE YET
+# Modified Momentum Transformer - IN PROCESS, DON'T FORK / USE
 ## About
-This is a table-driven version of Kieran et al's Momentum Transformer (https://github.com/kieranjwood/trading-momentum-transformer) which accompanies the paper [Trading with the Momentum Transformer: An Intelligent and Interpretable Architecture](https://arxiv.org/pdf/2112.08534.pdf). The objective of this repo is to make that important work accessible to a broader set of users through ease of implementation, iteration.
+This is a table-driven version of [Kieran et al's Momentum Transformer](https://github.com/kieranjwood/trading-momentum-transformer) which accompanies the paper [Trading with the Momentum Transformer: An Intelligent and Interpretable Architecture](https://arxiv.org/pdf/2112.08534.pdf). The objective of this repo is to make that important work accessible to a broader set of users through ease of implementation, iteration.
 
 ## How it's different
-1. Whereas the original supported price series with daily periodicity, this version currently supports daily, 90-minute, 60-minute and 5-min data. Further it can be easily extended to support any data frequency / preriodicty.
-2. Whereas the original version employed three configuration files (default, fixed model and parameter grid) and embedded some variables in the code, this version centralizes those variables in three files accessed by a single common function (config_vars()).
+1. Whereas the original supported price series with daily periodicity, this version supports daily, 90-minute, 60-minute and 5-min data. It can be easily extended to support any data frequency / preriodicty.
+2. Whereas the original version employed three configuration files (default, fixed model and parameter grid) and embedded some variables in the code, this version centralizes variables and provides programmatic access to them via a single common function.
 3. Whereas the original incorporated trading costs as a basis point charge on total cross-asset trade amount, new modules support explicit per asset / per transaction trading costs.
 4. Whereas the original version used Keras' RandomSearch tuner to explore the hyperparamter grid, this version supports use of Keras' uses Hyperband tuner for traversing the multi-dimensional parameter space.
 5. Whereas the original version was implemented in a series of python files executed from the command line, this version places those calls in an (iPython) file which can be configured to run against local or cloud resources.
 6. Where as the original directory structure assumed a single implementation, the new structure assumes users will run multiple versions each of which will be stored in their own directory complete w/ experiment-specific settings, source code, input data and results.
 
+## Why Momentum Transformer is important
+Github has many repos implementing trading strategies that don't work. Lay traders start thinking profitable trading strategies abound only to learn that very few find durable signal. This one finds signal. Further, it does so using a risk-aware objective function that is more likely to survive regime changes, market cycles. Having said that, it is not a great option for day traders. Given the frequency of trading, this algorithm is best suited for always-long funds (e.g., hedge fund portfolios, ETFs, faimly offices, etc.) or as part of an ensemble trading strategy.
+
 ## Using the code
-1. To get / run data from the paper: Create a Nasdaq Data Link account to access the [free Quandl dataset](https://data.nasdaq.com/data/CHRIS-wiki-continuous-futures/documentation). This dataset provides continuous contracts for 600+ futures, built on top of raw data from CME, ICE, LIFFE etc. Then download the Quandl data with: `python -m data.download_quandl_data <<API_KEY>>`
-2. To run data using closing equity prices for sample daily, 90-minute, 60-minute or 5-minute data...
+1. To run using any of the daily, 90-minute, 60-minute or 5-minute sample closing equity prices privided: ...
+2. To run using data from the original paper: Create a Nasdaq Data Link account to access the [free Quandl dataset](https://data.nasdaq.com/data/CHRIS-wiki-continuous-futures/documentation). This dataset provides continuous contracts for 600+ futures, built on top of raw data from CME, ICE, LIFFE etc. Then download the Quandl data with: `python -m data.download_quandl_data <<API_KEY>>`
 3. Double-click the iPython notebook which will then walk you through creating the input features including changepoint detection (optional), running a model, reporting results. 
 
 ## References
